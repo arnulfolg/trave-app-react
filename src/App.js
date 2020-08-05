@@ -1,16 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import './App.scss';
-import AppHeader from "./components/Header";
-import Home from "./components/Home";
+import AppHeader from "./components/Header/Header";
+import Home from "./components/Home/Home";
+import Explore from "./components/Explore/Explore";
+import Category from "./components/Category/Category";
+import Place from "./components/Place/Place";
+import MyPlaces from "./components/MyPlaces/MyPlaces";
+import Banner from "./components/Banner/Banner";
+import Categories from "./components/Categories/Categories";
 
 function App() {
   return (
     <div className="App">
-      <AppHeader />
-      <section className="content">
-         <Home></Home>
-      </section>
+      <Router>
+          <AppHeader />
+        <section className="content">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/explore" component={Explore} />
+            <Route path="/categories" exact component={Categories} />
+            <Route path="/myplaces" exact component={MyPlaces} />
+            <Route path="/categories/:category" component={Category} />
+            <Route path="/place/:place">
+                <Banner />
+                <Place />
+            </Route>
+          </Switch>
+        </section>
+      </Router>
+      
     </div>
   );
 }

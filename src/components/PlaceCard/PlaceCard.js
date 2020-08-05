@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import './PlaceCard.scss'
 
 class PlaceCard extends React.Component {
@@ -15,7 +16,7 @@ class PlaceCard extends React.Component {
 							pueblo magico
 						</span>
 					</p>
-					<a>See place</a>
+					<Link to="/place/id">See place</Link>
 				</section>
 			</section>
 		)

@@ -1,0 +1,85 @@
+.place {
+	display: grid;
+	grid-template-columns: 5fr 2fr;
+	grid-gap: 40px;
+
+	.place_content {
+		p.tags {
+			font-size: 1.2rem;
+			display: flex;
+			flex-wrap: wrap;
+			span.tag {
+				background-color: var(--main-app-color);
+				padding: 4px 8px;
+				border-radius: 36px;
+				margin: 4px;
+				word-break: break-all;
+				cursor: default;
+
+				&::selection {
+					background-color: var(--main-app-color);
+				}
+			}
+		}
+	}
+
+	.place_actions {
+		background-color: var(--color-white);
+		box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.25);
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-content: center;
+		align-items: stretch;
+
+		.review {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-around;
+			align-content: stretch;
+			align-items: center;
+
+			button.review_thumbs {
+				padding: 10px;
+				font-family: "Open Sans", sans-serif;
+				font-weight: 300;
+				font-size: 1.5rem;
+				line-height: 28px;
+				margin-bottom: 0;
+				background-color: white;
+				border: none;
+
+				&:focus,
+				&:active {
+					border: none;
+				}
+
+				svg {
+					margin-right: 10px;
+				}
+
+				.fas {
+					color: var(--main-app-color);
+
+					+ span {
+						color: var(--main-app-color);
+						font-weight: 600;
+					}
+				}
+			}
+		}
+		.checkbox {
+			margin-bottom: 5px;
+			input {
+				margin-right: 10px;
+
+				&:checked {
+					box-shadow: 0 0 0 3px var(--main-app-color);
+				}
+			}
+		}
+	}
+}

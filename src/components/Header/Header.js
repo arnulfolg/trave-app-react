@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import logo from './../logo.svg'
+import logo from './../../logo.svg'
 import "./Header.scss";
 
 class AppHeader extends React.Component {
@@ -22,16 +23,18 @@ class AppHeader extends React.Component {
 		return (
 			<header className="travel_header">
 				<section>
-					<a><img src={logo} alt="Travel App" /></a>
+					<Link to="/">
+						<img src={logo} alt="Travel App" />
+					</Link>
 				</section>
 
 				<nav className="header_navigation">
 					<ul>
 						<li>
-							<a className="header_link">Explore</a>
+							<Link to="/explore" className="header_link">Explore</Link>
 						</li>
 						<li>
-							<a className="header_link">Categories</a>
+							<Link to="/categories" className="header_link">Categories</Link>
 						</li>
 					</ul>
 				</nav>

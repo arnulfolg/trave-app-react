@@ -1,0 +1,38 @@
+.category {
+	display: grid;
+
+	grid-gap: 32px;
+	align-items: stretch;
+	justify-items: stretch;
+
+	.category_titles {
+		display: grid;
+		grid-template-columns: 140px 1fr;
+		grid-template-rows: repeat(2, 70px);
+		grid-template-areas:
+			"category_titles__img category_titles__title"
+			"category_titles__img category_titles__description";
+		grid-gap: 0 10px;
+		align-items: stretch;
+		justify-items: stretch;
+
+		img {
+			grid-area: category_titles__img;
+		}
+
+		h2 {
+			grid-area: category_titles__title;
+		}
+
+		p {
+			grid-area: category_titles__description;
+		}
+	}
+}
+
+.category .category_list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: auto;
+	grid-gap: 40px;
+}
