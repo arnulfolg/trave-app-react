@@ -4,6 +4,25 @@ import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import "./Place.scss";
 
 class Place extends React.Component {
+	constructor(props) {
+		super(props)
+		// console.log("hr")
+		this.state = {
+			// placeSelected: props.match.params.place,
+			place : {}
+		}
+	}
+
+	async componentDidMount() {
+		const getPlace_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=' + this.state.placeSelected;
+		let requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+		let response = await fetch(getPlace_url, requestOptions)
+		this.setState({place: await response.json()})
+	}
+	
 	render() {
 		return (
 			<article className="main place">

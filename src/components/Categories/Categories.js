@@ -3,6 +3,23 @@ import "./Categories.scss";
 import CategoryCard from "./../CategoryCard/CategoryCard";
 
 class Explore extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			categories : []
+		}
+	}
+
+	async componentDidMount() {
+		const getPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getTags';
+		let requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+		let response = await fetch(getPlaces_url, requestOptions)
+		this.setState({categories: await response.json()})
+	}
+	
 	render() {
 		return (
 		<main className="main categories">
@@ -14,10 +31,9 @@ class Explore extends React.Component {
 				</p>
 			</section>
 			<section className="categories_list">
-				<CategoryCard />
-				<CategoryCard />
-				<CategoryCard />
-				<CategoryCard />
+				{this.state.categories.map((category, index) => 
+					<CategoryCard key={index} info={category} />
+				)}
 			</section>
 		</main>
 		);

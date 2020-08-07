@@ -41,16 +41,16 @@ class AppHeader extends React.Component {
 				<section className="logInModule">
 					<p>example@example.com</p>
 					{!this.state.loggedIn && 
-						<a className="header_link" onClick={changeLogStatus}>
+						<button className="header_link" onClick={changeLogStatus}>
 							<FontAwesomeIcon icon={faSignInAlt} />
 							Sign In
-						</a>
+						</button>
 					}
 					{this.state.loggedIn && 
-						<a className="header_link" onClick={changeLogStatus}>
+						<button className="header_link" onClick={changeLogStatus}>
 							<FontAwesomeIcon icon={faSignOutAlt} />
 							Sign Out
-						</a>
+						</button>
 					}
 				</section>
 			</header>

@@ -4,6 +4,23 @@ import './Home.scss'
 import PlaceCard from "../PlaceCard/PlaceCard";
 
 class Home extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			places : []
+		}
+	}
+
+	async componentDidMount() {
+		const getPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getFeaturedPlaces';
+		let requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+		let response = await fetch(getPlaces_url, requestOptions)
+		this.setState({places: await response.json()})
+	}
+	
 	render() {
 		return (
 			<main className="main dashboard">
@@ -25,8 +42,8 @@ class Home extends React.Component {
 				<section className="dashboard_featured">
 					<h2>Featured Places</h2>
 					<section className="places">
-						{[1,2,3].map((place, index) => 
-							<PlaceCard key={index} />
+						{this.state.places.map((place, index) => 
+							<PlaceCard key={index} place={place} />
 						)}
 					</section>
 				</section>

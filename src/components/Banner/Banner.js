@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import "./Banner.scss";
 
 class Explore extends React.Component {
