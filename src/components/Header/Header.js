@@ -1,23 +1,21 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { SignIn, SignOut } from "./../../redux/actions/loggedIn.action";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import logo from './../../logo.svg'
 import "./Header.scss";
 
 class AppHeader extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			loggedIn : false
-		}
-	}
 
 	render() {
-		const changeLogStatus = () => {
-			this.setState((prevState) => ({
-				loggedIn : !prevState.loggedIn
-			}))
+		const LogIn = () => {
+			this.props.SignIn(true)
+		}
+
+		const LogOut = () => {
+			this.props.SignOut(false)
 		}
 
 		return (
@@ -40,14 +38,14 @@ class AppHeader extends React.Component {
 				</nav>
 				<section className="logInModule">
 					<p>example@example.com</p>
-					{!this.state.loggedIn && 
-						<button className="header_link" onClick={changeLogStatus}>
+					{!this.props.loggedInState && 
+						<button className="header_link" onClick={LogIn}>
 							<FontAwesomeIcon icon={faSignInAlt} />
 							Sign In
 						</button>
 					}
-					{this.state.loggedIn && 
-						<button className="header_link" onClick={changeLogStatus}>
+					{this.props.loggedInState && 
+						<button className="header_link" onClick={LogOut}>
 							<FontAwesomeIcon icon={faSignOutAlt} />
 							Sign Out
 						</button>
@@ -58,4 +56,8 @@ class AppHeader extends React.Component {
 	}
 }
 
-export default AppHeader;
+const mapStateToProps = state => {
+  return { loggedInState: state.loggedIn };
+};
+
+export default connect(mapStateToProps, {SignIn, SignOut})(AppHeader);
