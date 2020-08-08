@@ -12,11 +12,7 @@ class MyPlaces extends React.Component {
 					visit.
 				</p>
 				<section className="myplaces_list">
-					<PlaceCard />
-					<PlaceCard />
-					<PlaceCard />
-					<PlaceCard />
-					<PlaceCard />
+					<PlaceCard place={{place: 'React', categories: []}} />
 				</section>
 			</main>
 		);
