@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import loggedIn from "./loggedIn";
-import singInDIalog from "./singInDIalog";
+import signInDialog from "./signInDialog";
 import updateUserData from "./updateUserData";
 
 export default combineReducers({
 	loggedIn,
-	singInDIalog,
+	signInDialog,
 	updateUserData
 });

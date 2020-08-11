@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { SignIn, SignOut } from "./../../redux/actions/loggedIn.action";
+import { openSignInDialog } from "./../../redux/actions/signInDialog.action";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import logo from './../../logo.svg'
@@ -11,7 +12,7 @@ class AppHeader extends React.Component {
 
 	render() {
 		const LogIn = () => {
-			this.props.SignIn(true)
+			this.props.openSignInDialog()
 		}
 
 		const LogOut = () => {
@@ -37,7 +38,6 @@ class AppHeader extends React.Component {
 					</ul>
 				</nav>
 				<section className="logInModule">
-					<p>example@example.com</p>
 					{!this.props.loggedInState && 
 						<button className="header_link" onClick={LogIn}>
 							<FontAwesomeIcon icon={faSignInAlt} />
@@ -45,10 +45,13 @@ class AppHeader extends React.Component {
 						</button>
 					}
 					{this.props.loggedInState && 
-						<button className="header_link" onClick={LogOut}>
-							<FontAwesomeIcon icon={faSignOutAlt} />
-							Sign Out
-						</button>
+						<React.Fragment>
+							<p>example@example.com</p>
+							<button className="header_link" onClick={LogOut}>
+								<FontAwesomeIcon icon={faSignOutAlt} />
+								Sign Out
+							</button>
+						</React.Fragment>
 					}
 				</section>
 			</header>
@@ -60,4 +63,4 @@ const mapStateToProps = state => {
   return { loggedInState: state.loggedIn };
 };
 
-export default connect(mapStateToProps, {SignIn, SignOut})(AppHeader);
+export default connect(mapStateToProps, {SignIn, SignOut, openSignInDialog})(AppHeader);
