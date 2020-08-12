@@ -1,8 +1,8 @@
 import React from 'react';
 import "./AuthDialog.scss";
 import { connect } from "react-redux";
-import { SignIn } from "./../../redux/actions/loggedIn.action";
-import { closeSignInDialog } from "./../../redux/actions/signInDialog.action";
+import { SignIn } from "../../redux/actions/loggedIn.action";
+import { closeSignInDialog } from "../../redux/actions/signInDialog.action";
 
 class AuthDialog extends React.Component {
 	

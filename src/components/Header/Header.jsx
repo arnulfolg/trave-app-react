@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { SignIn, SignOut } from "./../../redux/actions/loggedIn.action";
-import { openSignInDialog } from "./../../redux/actions/signInDialog.action";
+import { SignIn, SignOut } from "../../redux/actions/loggedIn.action";
+import { openSignInDialog } from "../../redux/actions/signInDialog.action";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import logo from './../../logo.svg'
