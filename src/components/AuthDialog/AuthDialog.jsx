@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useFirebaseApp  } from 'reactfire';
+import 'firebase/auth'
 import "./AuthDialog.scss";
 import { connect } from "react-redux";
 import { SignIn } from "../../redux/actions/loggedIn.action";
 import { closeSignInDialog } from "../../redux/actions/signInDialog.action";
+import { updateUserData } from "../../redux/actions/updateUserData.action";
+		
+const AuthDialog  = (props) => {
 
-class AuthDialog extends React.Component {
-	
-	render() {
+		const firebase = useFirebaseApp();
+
+		const [user, setUser] = useState({
+			email: '',
+			password: ''
+		});
+
+		const handleChange = e => {
+			setUser({
+				...user,
+				[e.target.name]: e.target.value,
+			})
+		};
+
 		const closeModal = (e) => {
 			e.preventDefault()
-			this.props.closeSignInDialog()
+			props.closeSignInDialog()
 		}
 
 		const logIn = (e) => {
 			e.preventDefault()
-			this.props.closeSignInDialog()
-			this.props.SignIn(true)
+			firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+				.then(result => {
+					if (!result.user.emailVerified) { 
+						props.updateUserData({email: result.user.email})
+						props.closeSignInDialog()
+						props.SignIn(true)
+					}
+				})
 		}
-
-		// const logOut = () => {
-
-		// }
 
 		return (
 			<section className="auth-dialog">
-				<form>
+				<form onSubmit={logIn}>
 					<section className="dialog_header">
 						<h2>Sign In</h2>
 					</section>
@@ -34,24 +52,28 @@ class AuthDialog extends React.Component {
 							id="user-name"
 							type="string"
 							placeholder="Email"
+							name="email"
+							onChange={handleChange}
 						/>
 						<label htmlFor="user-pass">Password:</label>
 						<input
 							id="user-pass"
 							type="password"
 							placeholder="Password"
+							name="password"
+							onChange={handleChange}
 						/>
 					</section>
 					<section className="dialog_actions">
 						<button onClick={closeModal}>Cancel</button>
-						<button className="cta" onClick={logIn}>
+						<button className="cta" type="submit">
 							Confirm
 						</button>
 					</section>
 				</form>
 			</section>
 		);
-	}
+	
 }
 
-export default connect(null, {SignIn, closeSignInDialog})(AuthDialog);
+export default connect(null, {SignIn, closeSignInDialog, updateUserData})(AuthDialog);
