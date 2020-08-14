@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFirebaseApp  } from 'reactfire';
+import { useFirebaseApp } from 'reactfire';
 import 'firebase/auth'
 import "./AuthDialog.scss";
 import { connect } from "react-redux";
@@ -7,9 +7,17 @@ import { SignIn } from "../../redux/actions/loggedIn.action";
 import { closeSignInDialog } from "../../redux/actions/signInDialog.action";
 import { updateUserData } from "../../redux/actions/updateUserData.action";
 		
-const AuthDialog  = (props) => {
+function AuthDialog (props) {
 
 		const firebase = useFirebaseApp();
+		firebase.auth().onAuthStateChanged((user) => {
+			if(user) {
+				props.updateUserData({email: user.email})
+				props.SignIn(true)
+			} else {
+				props.updateUserData({email: ""})
+			}
+		})
 
 		const [user, setUser] = useState({
 			email: '',
