@@ -1,0 +1,53 @@
+header.travel_header {
+	height: 100px;
+	background-color: var(--main-app-color);
+	position: static;
+	z-index: 100;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-content: center;
+	align-items: center;
+	padding: 40px;
+
+	section.logInModule {
+		display: flex;
+		flex-direction: row;
+
+		p {
+			margin-right: 10px;
+			font-style: italic;
+			color: var(--color-white);
+			font-size: 1.4rem;
+		}
+	}
+
+	.header_link {
+		background: none;
+    	border: none;
+		color: var(--color-white);
+		font-weight: 300;
+		text-decoration: none;
+		cursor: pointer;
+
+		&.router-link-active {
+			font-weight: 600;
+			text-decoration: initial;
+		}
+	}
+}
+
+.header_navigation ul {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-content: center;
+	align-items: center;
+	padding: 40px;
+
+	li {
+		margin: 0 14px;
+	}
+}

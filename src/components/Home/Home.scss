@@ -1,0 +1,27 @@
+.dashboard {
+	display: grid;
+	grid-gap: 50px;
+	align-items: stretch;
+	justify-items: stretch;
+
+	.card {
+		background-color: var(--color-white);
+		box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.25);
+		padding: 40px;
+	}
+
+	.dashboard_explore {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 40px;
+		align-items: stretch;
+		justify-items: stretch;
+	}
+
+	.dashboard_featured .places {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-auto-rows: auto;
+		grid-gap: 40px;
+	}
+}
