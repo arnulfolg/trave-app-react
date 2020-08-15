@@ -25,7 +25,6 @@ class App extends React.Component {
               <section className={`auth ${this.props.signInDialog ? "auth__open" : "auth__close"}`}>
                     <AuthDialog />
               </section>
-           
               <section className="content">
                 <Switch>
                   <Route path="/" exact component={Home} />

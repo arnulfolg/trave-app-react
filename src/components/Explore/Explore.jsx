@@ -11,7 +11,7 @@ class Explore extends React.Component {
 	}
 
 	async componentDidMount() {
-		const getPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getPlaces';
+		const getPlaces_url = `${process.env.REACT_APP_API_URL}getPlaces`;
 		let requestOptions = {
 			method: "GET",
 			redirect: "follow"

@@ -13,8 +13,8 @@ class Category extends React.Component {
 	}
 
 	async componentDidMount() {
-		const getTagPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getTagPlaces?tag=' + this.state.categorySelected;
-		const getTag_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getTag?tag=' + this.state.categorySelected;
+		const getTagPlaces_url = `${process.env.REACT_APP_API_URL}getTagPlaces?tag=${this.state.categorySelected}`;
+		const getTag_url = `${process.env.REACT_APP_API_URL}getTag?tag=${this.state.categorySelected}`;
 
 		let requestOptions = {
 			method: "GET",

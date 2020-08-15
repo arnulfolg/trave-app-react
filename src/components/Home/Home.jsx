@@ -12,7 +12,7 @@ class Home extends React.Component {
 	}
 
 	async componentDidMount() {
-		const getPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getFeaturedPlaces';
+		const getPlaces_url = `${process.env.REACT_APP_API_URL}getFeaturedPlaces`;
 		let requestOptions = {
 			method: "GET",
 			redirect: "follow"

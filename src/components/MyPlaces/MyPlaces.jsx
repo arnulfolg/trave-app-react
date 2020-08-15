@@ -13,7 +13,7 @@ class MyPlaces extends React.Component {
 	}
 
 	async getMyPlaces() {
-		const getMyPlaces_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getMyPlaces?uid=' + this.props.userData.uid;
+		const getMyPlaces_url = `${process.env.REACT_APP_API_URL}getMyPlaces?uid=${this.props.userData.uid}`;
 		let requestOptions = {
 			method: "GET",
 			redirect: "follow"

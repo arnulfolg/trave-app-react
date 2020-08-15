@@ -46,7 +46,7 @@ class Place extends React.Component {
 			redirect: "follow"
 		}
 
-		const saveUserPlace_url = `http://localhost:5001/travel-app-9b55f/us-central1/saveUserPlace`;
+		const saveUserPlace_url = `${process.env.REACT_APP_API_URL}saveUserPlace`;
 
 		fetch(saveUserPlace_url, requestOptions)
 			.then(response => response.text())
@@ -79,7 +79,7 @@ class Place extends React.Component {
 			console.log("log out")
 		}
 
-		const getPlace_url = `http://localhost:5001/travel-app-9b55f/us-central1/getUserPlace?uid=${this.props.userData.uid}&pid=${this.state.place.id}`;
+		const getPlace_url = `${process.env.REACT_APP_API_URL}getUserPlace?uid=${this.props.userData.uid}&pid=${this.state.place.id}`;
 		let requestOptions = {
 			method: "GET",
 			redirect: "follow"
@@ -99,7 +99,7 @@ class Place extends React.Component {
  	}
 
 	async componentDidMount() {
-		const getPlace_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=' + this.state.placeSelected;
+		const getPlace_url = `${process.env.REACT_APP_API_URL}getPlace?place=${this.state.placeSelected}`;
 		let requestOptions = {
 			method: "GET",
 			redirect: "follow"
