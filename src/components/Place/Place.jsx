@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import "./Place.scss";
@@ -9,9 +10,93 @@ class Place extends React.Component {
 		super(props)
 		this.state = {
 			placeSelected: props.match.params.place,
-			place : {}
+			place : {},
+			userData: {},
+			docid: "",
+			likeStatus: -1,
+			wantToVisit: false,
+			hadVisited: false
 		}
+
+		this.handleChange = this.handleChange.bind(this);
+		this.toggleLike = this.toggleLike.bind(this);
+		this.toggleDislike = this.toggleDislike.bind(this);
 	}
+
+	handleChange(event) {
+		this.setState({[event.target.name]: event.target.checked});
+	};
+
+	saveUserData() {
+		let myHeaders = new Headers()
+		myHeaders.append("Content-Type", "application/json")
+		let body = JSON.stringify({
+			docid: this.state.docid || null,
+			uid: this.props.userData.uid,
+			pid: this.state.place.id,
+			likeStatus: this.state.likeStatus,
+			wantToVisit: this.state.wantToVisit,
+			hadVisited: this.state.hadVisited
+		})
+
+		let requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: body,
+			redirect: "follow"
+		}
+
+		const saveUserPlace_url = `http://localhost:5001/travel-app-9b55f/us-central1/saveUserPlace`;
+
+		fetch(saveUserPlace_url, requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log("error", error))
+	}
+
+	toggleLike() {
+		if (this.state.likeStatus === 1) {
+			this.setState({likeStatus: -1});
+		} else {
+			this.setState({likeStatus: 1});
+		}
+
+		setTimeout(() => this.saveUserData() , 1000);
+	}
+
+	toggleDislike() {
+		if (this.state.likeStatus === 0) {
+			this.setState({likeStatus: -1});
+		} else {
+			this.setState({likeStatus: 0});
+		}
+
+		setTimeout(() => this.saveUserData() , 1000);
+	}
+
+	async setDocID() {
+      if(this.props.userData.uid.length === 0) {
+			console.log("log out")
+		}
+
+		const getPlace_url = `http://localhost:5001/travel-app-9b55f/us-central1/getUserPlace?uid=${this.props.userData.uid}&pid=${this.state.place.id}`;
+		let requestOptions = {
+			method: "GET",
+			redirect: "follow"
+		}
+
+		let response = await fetch(getPlace_url, requestOptions)
+		let res = await response.json()
+		this.setState({
+			userData: res
+			})
+		this.setState({
+			likeStatus: res.likeStatus,
+			wantToVisit: res.wantToVisit,
+			hadVisited: res.hadVisited,
+			docid: res.docid
+			})
+ 	}
 
 	async componentDidMount() {
 		const getPlace_url = 'http://localhost:5001/travel-app-9b55f/us-central1/getPlace?place=' + this.state.placeSelected;
@@ -21,6 +106,8 @@ class Place extends React.Component {
 		}
 		let response = await fetch(getPlace_url, requestOptions)
 		this.setState({place: await response.json()})
+
+		setTimeout(() => this.setDocID() , 1000);
 	}
 	
 	render() {
@@ -49,15 +136,18 @@ class Place extends React.Component {
 									<button
 										className="review_thumbs"
 										type="button"
+										onClick={this.toggleLike}
 									>
-										<FontAwesomeIcon className="fas" icon={faThumbsUp} />
+										<FontAwesomeIcon className={this.state.likeStatus === 1 ? "fas" : "far"} icon={faThumbsUp} />
 										<span>4.2K</span>
 									</button>
 									<button
 										className="review_thumbs"
 										type="button"
+										onClick={this.toggleDislike}
+
 									>
-										<FontAwesomeIcon icon={faThumbsDown} />
+										<FontAwesomeIcon className={this.state.likeStatus === 0 ? "fas" : "far"} icon={faThumbsDown} />
 										<span>124</span>
 									</button>
 								</section>
@@ -66,6 +156,8 @@ class Place extends React.Component {
 										type="checkbox"
 										id="wantToVisit"
 										name="wantToVisit"
+										checked={this.state.wantToVisit}
+										onChange={this.handleChange} 
 									/>
 									<label htmlFor="wantToVisit">Want to visit</label>
 								</section>
@@ -74,6 +166,8 @@ class Place extends React.Component {
 										type="checkbox"
 										id="hadVisited"
 										name="hadVisited"
+										checked={this.state.hadVisited}
+										onChange={this.handleChange} 
 									/>
 									<label htmlFor="hadVisited">Had visited</label>
 								</section>
@@ -85,4 +179,10 @@ class Place extends React.Component {
 	}
 }
 
-export default Place;
+const mapStateToProps = state => {
+  return { 
+		userData: state.updateUserData
+	};
+};
+
+export default connect(mapStateToProps, null)(Place);

@@ -12,7 +12,7 @@ function AuthDialog (props) {
 		const firebase = useFirebaseApp();
 		firebase.auth().onAuthStateChanged((user) => {
 			if(user) {
-				props.updateUserData({email: user.email})
+				props.updateUserData({email: user.email, uid: user.uid})
 				props.SignIn(true)
 			} else {
 				props.updateUserData({email: ""})

@@ -1,5 +1,6 @@
 const defaultState = {
-	email: ""
+	email: "",
+	uid: ""
 }
 
 function reducer(state = defaultState, {type, payload}){
