@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import logo from './../../logo.svg'
+import logo from '/logo.svg'
 import "./Header.scss";
 
 interface IAppHeader {
