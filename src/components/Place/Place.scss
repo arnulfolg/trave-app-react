@@ -74,6 +74,7 @@
 		.checkbox {
 			margin-bottom: 5px;
 			input {
+				accent-color: var(--main-app-color);
 				margin-right: 10px;
 
 				&:checked {

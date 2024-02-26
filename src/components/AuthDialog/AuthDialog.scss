@@ -21,12 +21,13 @@
 		justify-content: space-between;
 		align-content: stretch;
 		align-items: stretch;
-
+		
 		label {
 			margin-bottom: 0;
 		}
-
+		
 		input {
+			accent-color: var(----main-app-color);
 			margin-bottom: 24px;
 			height: 42px;
 			width: 100%;
