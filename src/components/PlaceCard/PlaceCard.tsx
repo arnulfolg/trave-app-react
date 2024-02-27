@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import './PlaceCard.scss'
 
 interface IPlaceCard {
-	place: string,
-	image: string,
-	categories: string[]
+	id: string
+	place: string
+	image: string
+	categories?: string[]
 }
 
-function PlaceCard({place, image, categories}: IPlaceCard) {
+function PlaceCard({id, place, image, categories}: IPlaceCard) {
 
   return (
     <>
@@ -18,13 +19,13 @@ function PlaceCard({place, image, categories}: IPlaceCard) {
 			<section className="card_content">
 				<h3>{ place }</h3>
 				<p className="tags">
-					{categories.map((category, index) => 
+					{categories && categories.map((category, index) => 
 						<span className="tag" key={index}>
 							{category}
 						</span>
 					)}
 				</p>
-				<Link to={`/place/${place}`}>See place</Link>
+				<Link to={`/place/${id}`}>See place</Link>
 			</section>
 		</section>
     </>

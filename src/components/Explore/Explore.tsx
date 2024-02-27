@@ -1,14 +1,16 @@
 import "./Explore.scss";
 import PlaceCard from "./../PlaceCard/PlaceCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from '../../../utils/supabase'
 
 interface IPlaceCard {
-	place: string,
-	image: string,
+	id: string
+	place: string
+	image: string
 	categories: string[]
 }
 
-const data = [
+const localdata = [
 	{
 		place: 'San Francisco',
 		image: 'https://i.stack.imgur.com/Of2w5.jpg',
@@ -23,8 +25,19 @@ const data = [
 
 function Explore() {
 
-	const [places, setplaces] = useState<IPlaceCard[]>(data)
+	const [places, setplaces] = useState<IPlaceCard[]>([])
 
+	  useEffect(() => {
+		async function getTodos() {
+			let { data: Places } = await supabase.rpc('selectallplaces2')
+			if (Places.length > 1) {
+				setplaces(Places)
+			}
+		}
+
+    getTodos()
+  }, [])
+  
   return (
     <>
 		<main className="main explore">
@@ -32,8 +45,8 @@ function Explore() {
 				<h2>Explore places</h2>
 			</section>
 			<section className="explore_list">
-				{places.map((place, index) => 
-					<PlaceCard key={index} place={place.place} image={place.image} categories={place.categories}  />
+				{places.map((place) => 
+					<PlaceCard key={place.id} id={place.id} place={place.place} image={place.image} categories={place.categories}  />
 				)}
 			</section>
 		</main>

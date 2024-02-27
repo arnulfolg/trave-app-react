@@ -4,8 +4,9 @@ import PlaceCard from "../PlaceCard/PlaceCard";
 import { useState } from "react";
 
 interface IPlaceCard {
-	place: string,
-	image: string,
+	id: string
+	place: string
+	image: string
 	categories: string[]
 }
 
@@ -25,13 +26,6 @@ const data = [
 function Home() {
 
 	const [places, setplaces] = useState<IPlaceCard[]>(data)
-
-	// useEffect(() => {
-		
-
-	// 	setplaces(data);
-
-	// }, [])
 	
 
   return (
@@ -55,8 +49,8 @@ function Home() {
 			<section className="dashboard_featured">
 				<h2>Featured Places</h2>
 				<section className="places">
-					{places.map((place, index) => 
-						<PlaceCard key={index} place={place.place} image={place.image} categories={place.categories}  />
+					{places.map((place) => 
+						<PlaceCard key={place.id} id={place.id} place={place.place} image={place.image} categories={place.categories}  />
 					)}
 				</section>
 			</section>

@@ -61,6 +61,7 @@ function Place() {
 
   return (
     <>
+		<title>{`Travel App - ${place.place}`}</title>
 		<section
 			className="banner"
 			style={{backgroundImage: `url(${place.image})`}}
