@@ -28,14 +28,14 @@ function Explore() {
 	const [places, setplaces] = useState<IPlaceCard[]>([])
 
 	  useEffect(() => {
-		async function getTodos() {
+		async function getAllPlaces() {	
 			let { data: Places } = await supabase.rpc('selectallplaces2')
 			if (Places.length > 1) {
 				setplaces(Places)
 			}
 		}
 
-    getTodos()
+    getAllPlaces()
   }, [])
   
   return (

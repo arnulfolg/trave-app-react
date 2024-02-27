@@ -2,40 +2,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import "./Place.scss";
 import "./Banner.scss"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../../utils/supabase'
+import { useParams } from 'react-router-dom';
 
 interface IPlaceCard {
+	id: string
 	place: string
 	image: string
 	description: string
 	categories: string[]
 }
 
-const data = 
-	{
-		place: 'San Francisco',
-		image: 'https://i.stack.imgur.com/Of2w5.jpg',
-		description: 'Nice place to visit',
-		categories: ['usa', 'golden gate'],
-	};
-	// constructor(props) {
-	// 	state = {
-	// 		placeSelected: props.match.params.place,
-	// 		place : {},
-	// 		userData: {},
-	// 		docid: "",
-	// 		likeStatus: -1,
-	// 		wantToVisit: false,
-	// 		hadVisited: false
-	// 	}
-
-
 function Place() {
-	const [place, setplace] = useState<IPlaceCard>(data)
+	const { placeId } = useParams();
+	const [place, setplace] = useState<IPlaceCard>()
 	const [wantToVisit, setwantToVisit] = useState<boolean>(false)
 	const [hadVisited, sethadVisited] = useState<boolean>(false)
 	const [likeStatus, setlikeStatus] = useState<number>(-1)
 
+	 useEffect(() => {
+		async function getPlace() {
+			let { data: Place } = await supabase.rpc('selectoneplace', {
+					id_input: placeId
+				})
+			if (Place.length === 1) {
+				setplace(Place[0])
+			}
+		}
+
+		getPlace()
+	}, [])
 	const toggleLike = () => {
 		if (likeStatus === 1) {
 			setlikeStatus(-1);
@@ -61,22 +58,22 @@ function Place() {
 
   return (
     <>
-		<title>{`Travel App - ${place.place}`}</title>
+		<title>{`Travel App - ${place?.place}`}</title>
 		<section
 			className="banner"
-			style={{backgroundImage: `url(${place.image})`}}
+			style={{backgroundImage: `url(${place?.image})`}}
 		></section>
 		<article className="main place">
 			<section className="place_content">
-				<h2>{place.place}</h2>
+				<h2>{place?.place}</h2>
 				<p className="tags">
-					{place.categories?.map((category, index) => 
+					{place?.categories?.map((category, index) => 
 						<span className="tag" key={index}>
 							{category}
 						</span>
 					)}
 				</p>
-				<p>{place.description}</p>
+				<p>{place?.description}</p>
 			</section>
 			<aside className="place_actions">
 				<form>

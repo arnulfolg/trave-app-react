@@ -24,8 +24,8 @@ function App() {
                   <Route path="/explore" element={<Explore />} />
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/myplaces" element={<MyPlaces />} />
-                  <Route path="/categories/:category" element={<Category name={""} image={""} />} />
-                  <Route path="/place/:place" element={<Place />} />
+                  <Route path="/categories/:categoryId" element={<Category name={""} image={""} />} />
+                  <Route path="/place/:placeId" element={<Place />} />
                 </Routes>
               </section>
           </Router>
