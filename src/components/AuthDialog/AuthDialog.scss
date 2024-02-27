@@ -1,16 +1,11 @@
 
+dialog::backdrop {
+	background-color: var(--main-app-color);
+}
 .auth-dialog {
 	width: 40%;
-	height: 40%;
 	background-color: var(--color-white);
 	border-radius: 8px;
-
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-content: center;
-	align-items: stretch;
 
 	form {
 		padding: 24px;

@@ -5,23 +5,19 @@ import {
 } from "react-router-dom";
 import './App.scss';
 import AppHeader from "./components/Header/Header";
-import AuthDialog from "./components/AuthDialog/AuthDialog";
 import Home from "./components/Home/Home";
 import Explore from "./components/Explore/Explore";
 import Place from "./components/Place/Place";
 import Categories from "./components/Categories/Categories";
 import Category from "./components/Category/Category";
 import MyPlaces from "./components/MyPlaces/MyPlaces";
-function App({signInDialog}: {signInDialog: boolean}) {
+function App() {
 
   return (
     <>
        <div className="App">
           <Router>
-              <AppHeader email={"example@example.com"} loggedInState={false} />
-              <section className={`auth ${signInDialog ? "auth__open" : "auth__close"}`}>
-                    <AuthDialog />
-              </section>
+              <AppHeader />
               <section className="content">
                 <Routes>
                   <Route path="/" element={ <Home />} />

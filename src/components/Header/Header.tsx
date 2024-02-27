@@ -1,22 +1,39 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import logo from '/logo.svg'
+import logo from '/TravelAppLogo.svg'
 import "./Header.scss";
+import AuthDialog from "../AuthDialog/AuthDialog";
+import { useEffect, useState } from "react";
+import { createPortal } from 'react-dom';
 
 interface IAppHeader {
 	email: string
 	loggedInState: boolean
 }
 
-function AppHeader({email, loggedInState}: IAppHeader) {
+function AppHeader() {
+	const [openDialog, setopenDialog] = useState<boolean>(false);
+	const [loggedInState, setloggedInState] = useState<boolean>(false);
+	const [email, setemail] = useState<string>('');
+
+	const setHeaderLoggedInState = (props: IAppHeader) => {
+		setloggedInState(props.loggedInState);
+		setemail(props.email);
+	}
+
+	const setHeaderLoggedOutState = () => {
+		setloggedInState(false);
+		setemail('');
+	}
 
   return (
     <>
 		<header className="travel_header">
-			<section>
-				<Link to="/">
-					<img src={logo} alt="Travel App" />
+			<section >
+				<Link to="/" className="homeLogo">
+					<img src={logo} alt="" />
+					<h1>Travel Life</h1>
 				</Link>
 			</section>
 
@@ -32,7 +49,7 @@ function AppHeader({email, loggedInState}: IAppHeader) {
 			</nav>
 			<section className="logInModule">
 				{!loggedInState && 
-					<button className="header_link" >
+					<button className="header_link" onClick={() => setopenDialog(true)} >
 						<FontAwesomeIcon icon={faSignInAlt} />
 						Sign In
 					</button>
@@ -40,13 +57,14 @@ function AppHeader({email, loggedInState}: IAppHeader) {
 				{loggedInState && 
 					<>
 						<p>{email}</p>
-						<button className="header_link" >
+						<button className="header_link" onClick={() => setHeaderLoggedOutState()} >
 							<FontAwesomeIcon icon={faSignOutAlt} />
 							Sign Out
 						</button>
 					</>
 				}
 			</section>
+			{createPortal(<AuthDialog openState={openDialog} closeState={setopenDialog} setHeader={setHeaderLoggedInState}/>, document.body)}
 		</header>
     </>
   )

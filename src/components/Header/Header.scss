@@ -17,6 +17,7 @@ header.travel_header {
 
 		p {
 			margin-right: 10px;
+			margin-bottom: 0;
 			font-style: italic;
 			color: var(--color-white);
 			font-size: 1.4rem;
@@ -49,5 +50,20 @@ header.travel_header {
 
 	li {
 		margin: 0 14px;
+	}
+}
+
+.homeLogo {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	text-decoration: none;
+	
+	h1 {
+		font-family: "Berkshire Swash", serif;
+		font-weight: 400;
+		font-style: normal;
+		color: var(--color-white);
+		font-size: 3.4rem;
 	}
 }

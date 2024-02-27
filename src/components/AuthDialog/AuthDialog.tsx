@@ -1,7 +1,9 @@
-import  { useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
+
 import "./AuthDialog.scss";
 		
-function AuthDialog (props: any) {
+function AuthDialog ({openState, closeState, setHeader}: any) {
+		const dialog = useRef<HTMLDialogElement>()
 
 		const [user, setUser] = useState({
 			email: '',
@@ -14,18 +16,32 @@ function AuthDialog (props: any) {
 				[e.target.name]: e.target.value,
 			})
 		};
+		
+		useEffect(() => {
+			openState ? showModal() : closeModal();
+		}, [openState])
+		
+		const showModal = () => {
+			dialog?.current?.close();
+			dialog?.current?.showModal();
+			document.body.style.overflow = "hidden"
+		}
 
-		const closeModal = (e: any) => {
-			e.preventDefault()
-			props.closeSignInDialog()
+		const closeModal = () => {
+			dialog?.current?.close();
+			closeState(false);
+			document.body.style.overflow = "auto"
 		}
 
 		const logIn = (formData: any) => {
-			console.log({formData})
+			const email = formData.get("email");
+			// const password = formData.get("password");
+			closeModal();
+			setHeader({email: email, loggedInState: true })
 		}
 
 		return (
-			<section className="auth-dialog">
+			<dialog id='authDialog' className="auth-dialog" ref={dialog} open={openState}>
 				<form action={logIn}>
 					<section className="dialog_header">
 						<h2>Sign In</h2>
@@ -37,6 +53,7 @@ function AuthDialog (props: any) {
 							type="string"
 							placeholder="Email"
 							name="email"
+							required
 							onChange={handleChange}
 						/>
 						<label htmlFor="user-pass">Password:</label>
@@ -45,19 +62,19 @@ function AuthDialog (props: any) {
 							type="password"
 							placeholder="Password"
 							name="password"
+							required
 							onChange={handleChange}
 						/>
 					</section>
 					<section className="dialog_actions">
-						<button onClick={closeModal}>Cancel</button>
+						<button onClick={closeModal} formMethod="dialog">Cancel</button>
 						<button className="cta" type="submit">
 							Confirm
 						</button>
 					</section>
 				</form>
-			</section>
+			</dialog>
 		);
-	
 }
 
 export default AuthDialog;
